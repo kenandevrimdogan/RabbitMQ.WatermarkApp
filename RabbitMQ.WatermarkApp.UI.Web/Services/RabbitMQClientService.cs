@@ -22,7 +22,6 @@ namespace RabbitMQ.WatermarkApp.UI.Web.Services
         {
             _connectionFactory = connectionFactory;
             _logger = logger;
-            Connect();
         }
 
         public IModel Connect()
