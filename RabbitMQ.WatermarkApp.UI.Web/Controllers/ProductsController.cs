@@ -72,9 +72,10 @@ namespace RabbitMQ.WatermarkApp.UI.Web.Controllers
 
                 await ImageFile.CopyToAsync(stream);
 
+                product.ImageName = randomImageName;
+
                 _rabbitMQPublisher.Publish(new productImageCreatedEvent() { ImageName = randomImageName });
 
-                product.ImageName = randomImageName;
             }
 
             _context.Add(product);

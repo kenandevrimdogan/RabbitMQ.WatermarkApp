@@ -50,13 +50,13 @@ namespace RabbitMQ.WatermarkApp.UI.Web.BackgroundServices
             {
                 var productImageCreatedEvent = JsonSerializer.Deserialize<productImageCreatedEvent>(Encoding.UTF8.GetString(@event.Body.ToArray()));
 
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", productImageCreatedEvent.ImageName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", productImageCreatedEvent.ImageName);
 
                 using var img = Image.FromFile(path);
                 using var graphic = Graphics.FromImage(img);
 
                 var watermarkName = "www.google.com";
-                var font = new Font(FontFamily.GenericMonospace, 32, FontStyle.Bold, GraphicsUnit.Pixel);
+                var font = new Font(FontFamily.GenericMonospace, 35, FontStyle.Bold, GraphicsUnit.Pixel);
 
                 var textSize = graphic.MeasureString(watermarkName, font);
                 var color = Color.FromArgb(128, 255, 255, 255);
@@ -66,7 +66,7 @@ namespace RabbitMQ.WatermarkApp.UI.Web.BackgroundServices
 
                 graphic.DrawString(watermarkName, font, brush, position);
 
-                img.Save("wwwroot/Images/watermarks" + productImageCreatedEvent.ImageName);
+                img.Save("wwwroot/images/watermarks/" + productImageCreatedEvent.ImageName);
                 img.Dispose();
 
                 graphic.Dispose();
@@ -75,7 +75,7 @@ namespace RabbitMQ.WatermarkApp.UI.Web.BackgroundServices
             catch (Exception ex)
             {
 
-                throw;
+                _logger.LogError(ex.Message);
             }
 
             return Task.CompletedTask;
