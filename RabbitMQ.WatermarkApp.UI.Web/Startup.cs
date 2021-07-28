@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
+using RabbitMQ.WatermarkApp.UI.Web.BackgroundServices;
 using RabbitMQ.WatermarkApp.UI.Web.Models;
 using RabbitMQ.WatermarkApp.UI.Web.Services;
 using System;
@@ -34,6 +35,7 @@ namespace RabbitMQ.WatermarkApp.UI.Web
 
             services.AddSingleton<RabbitMQClientService>();
             services.AddSingleton<RabbitMQPublisher>();
+            services.AddHostedService<ImageWatermarkProcessBackgroundService>();
 
             services.AddDbContext<AppDbContext>(options =>
             {
